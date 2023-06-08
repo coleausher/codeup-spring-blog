@@ -6,13 +6,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-
 @Entity
-@Table(name="posts")
+@Table(name = "posts")
 public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,20 +24,19 @@ public class Post {
     private String body;
 
     @ManyToOne
-@JoinColumn(name = "user_id")
-    // columnDefinition allows you to modify the table definition
+    @JoinColumn(name = "user_id")
     private User user;
 
-    public Post(Long id, String title, String body) {
-        this.id = id;
-        this.title = title;
-        this.body = body;
-    }
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "post_categories",
+            joinColumns = {@JoinColumn(name = "post_id")},
+            inverseJoinColumns = {@JoinColumn(name = "category_id")}
+    )
+    private List<PostCategories> categories;
+
 
     public Post(String title, String body) {
         this.title = title;
         this.body = body;
     }
-
-
 }
