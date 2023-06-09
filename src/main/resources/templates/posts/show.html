@@ -12,6 +12,8 @@
 <th:block th:text="${post.title}"></th:block>
 <th:block th:text="${post.body}"></th:block>
 <th:block th:text="${post.user.email}"></th:block>
+<!--<p th:text="${user.email}"></p>-->
+
 <ul>
   <li th:each="category: ${post.categories}" th:text="${category.name}"></li>
 </ul>
