@@ -66,7 +66,7 @@ public class PostController {
     @PostMapping("/posts/create")
 //    @RequestMapping(path = "/posts/create", method = RequestMethod.POST)
     public String submitNewPost(@ModelAttribute Post post) {
-        User user = userDao.findById(1L).get();
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         post.setUser(user);
         emailService.prepareAndSend(post, "New Post Created!", post.getBody());
         postsDao.save(post);

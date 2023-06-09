@@ -21,9 +21,9 @@
 </div>
 
 <th:block th:each="post: ${posts}">
-  <li th:text="${post.title}"></li>
+  <h1><a th:href="@{/posts/{id}/edit(id=${post.id})}" th:text="${post.title}"></a></h1>
   <li th:text="${post.body}"></li>
-  <a th:href="@{/posts/{id}/edit(id=${post.id})}" class="btn btn-primary">Edit</a>
+
 </th:block>
 
 
