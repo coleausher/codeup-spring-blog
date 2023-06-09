@@ -8,6 +8,7 @@ import com.codeup.codeupspringblog.repositories.PostCategoriesRepository;
 import com.codeup.codeupspringblog.repositories.PostRepository;
 import com.codeup.codeupspringblog.repositories.UserRepository;
 import com.codeup.codeupspringblog.services.EmailService;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -32,8 +33,16 @@ public class PostController {
     @GetMapping("/posts")
 
     public String viewPosts(Model model) {
+        User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
         model.addAttribute("posts", postsDao.findAll());
+        //
+        System.out.println(loggedInUser.getEmail());
+        System.out.println(loggedInUser.getPassword());
+        System.out.println(loggedInUser.getUsername());
+
         return "posts/index";
+
     }
 
 
@@ -41,6 +50,7 @@ public class PostController {
     public String singlePost(@PathVariable long id, Model model) {
         model.addAttribute("post", postsDao.findById(id).get());
         return "posts/show";
+
     }
 
 

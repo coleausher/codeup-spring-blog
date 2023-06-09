@@ -2,8 +2,10 @@ package com.codeup.codeupspringblog.controllers;
 
 import com.codeup.codeupspringblog.models.Park;
 import com.codeup.codeupspringblog.models.State;
+import com.codeup.codeupspringblog.models.User;
 import com.codeup.codeupspringblog.repositories.ParkRepository;
 import com.codeup.codeupspringblog.repositories.StateRepository;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -41,8 +43,17 @@ public class TestController {
 
     @GetMapping("/parks")
     public String parks(Model model) {
+        //
+        User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+
         List<Park> parks = parksDao.findAll();
         model.addAttribute("parks", parks);
+        //
+        System.out.println(loggedInUser.getEmail());
+        System.out.println(loggedInUser.getPassword());
+        System.out.println(loggedInUser.getUsername());
+
         return "parks/index";
     }
 

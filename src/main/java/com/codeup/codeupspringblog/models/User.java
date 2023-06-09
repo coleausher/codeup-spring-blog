@@ -28,4 +28,13 @@ public class User {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     List<Post> posts;
+
+
+    // This is known as a copy constructor, which will make a clone of the user object.
+    public User(User copy) {
+        this.id = copy.id;
+        this.email = copy.email;
+        this.username = copy.username;
+        this.password = copy.password;
+    }
 }
